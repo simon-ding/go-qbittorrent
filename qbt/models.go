@@ -1,18 +1,5 @@
 package qbt
 
-//delimitize puts list into a combined (single element) map with all items connected separated by the delimiter
-//this is how the WEBUI API recognizes multiple items
-func delimitize(items []string, delimiter string) (delimited string) {
-	for i, v := range items {
-		if i > 0 {
-			delimited += delimiter + v
-		} else {
-			delimited = v
-		}
-	}
-	return delimited
-}
-
 //BasicTorrent holds a basic torrent object from qbittorrent
 type BasicTorrent struct {
 	Category               string `json:"category"`

@@ -587,12 +587,6 @@ func (client *Client) Reannounce(hashes []string) (bool, error) {
 	return resp.StatusCode == 200, nil
 }
 
-func makeDelimit(delimiter string) func([]string) string {
-	return func(arr []string) string {
-		return delimit(arr, delimiter)
-	}
-}
-
 // DownloadFromLink starts downloading a torrent from a link
 func (client *Client) DownloadLinks(links []string, opts DownloadOptions) error {
 	params := map[string]string{}
@@ -759,7 +753,7 @@ func (client *Client) RemoveTrackers(hash string, trackers []string) error {
 	case 409:
 		return wrapper.Errorf("All URLs were not found")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
@@ -777,7 +771,7 @@ func (client *Client) IncreasePriority(hashes []string) error {
 	case 409:
 		return wrapper.Errorf("Torrent queueing is not enabled")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
@@ -795,7 +789,7 @@ func (client *Client) DecreasePriority(hashes []string) error {
 	case 409:
 		return wrapper.Errorf("Torrent queueing is not enabled")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
@@ -813,7 +807,7 @@ func (client *Client) MaxPriority(hashes []string) error {
 	case 409:
 		return wrapper.Errorf("Torrent queueing is not enabled")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
@@ -831,7 +825,7 @@ func (client *Client) MinPriority(hashes []string) error {
 	case 409:
 		return wrapper.Errorf("Torrent queueing is not enabled")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
@@ -860,7 +854,7 @@ func (client *Client) FilePriority(hash string, ids []int, priority int) error {
 	case 409:
 		return wrapper.Errorf("Torrent metadata hasn't downloaded yet or at least one file id was not found")
 	default:
-		return wrapper.Errorf("An unknown error occurred causing a status code of: %", sc)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %v", sc)
 	}
 }
 
