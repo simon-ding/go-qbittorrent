@@ -130,6 +130,7 @@ type WebSeed struct {
 
 //TorrentFile holds a torrent file object from qbittorrent
 type TorrentFile struct {
+	Index        int     `json:"index"`
 	IsSeed       bool    `json:"is_seed"`
 	Name         string  `json:"name"`
 	Availability float32 `json:"availability"`
@@ -375,3 +376,12 @@ type InfoOptions struct {
 	Offset   *int
 	Hashes   []string
 }
+
+type PriorityValues int
+
+const (
+	Do_not_download  PriorityValues = 0
+	Normal_priority  PriorityValues = 1
+	High_priority    PriorityValues = 6
+	Maximal_priority PriorityValues = 7
+)
