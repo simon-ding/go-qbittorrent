@@ -1,4 +1,4 @@
-module github.com/FabriceBoyer/go-qbittorrent
+module github.com/fabriceboyer/go-qbittorrent
 
 go 1.14
 
