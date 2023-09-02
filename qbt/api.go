@@ -95,7 +95,13 @@ func (client *Client) get(endpoint string, opts map[string]string) (*http.Respon
 
 // post will perform a POST request with no content-type specified
 func (client *Client) post(endpoint string, opts map[string]string) (*http.Response, error) {
-	req, err := http.NewRequest("POST", client.URL+endpoint, nil)
+	// add optional parameters that the user wants
+	form := url.Values{}
+	for k, v := range opts {
+		form.Add(k, v)
+	}
+
+	req, err := http.NewRequest("POST", client.URL+endpoint, strings.NewReader(form.Encode()))
 	if err != nil {
 		return nil, wrapper.Wrap(err, "failed to build request")
 	}
@@ -105,22 +111,12 @@ func (client *Client) post(endpoint string, opts map[string]string) (*http.Respo
 	// add user-agent header to allow qbittorrent to identify us
 	req.Header.Set("User-Agent", "go-qbittorrent v0.1")
 
-	// add optional parameters that the user wants
-	if opts != nil {
-		form := url.Values{}
-		for k, v := range opts {
-			form.Add(k, v)
-		}
-		req.PostForm = form
-	}
-
 	resp, err := client.http.Do(req)
 	if err != nil {
 		return nil, wrapper.Wrap(err, "failed to perform request")
 	}
 
 	return resp, nil
-
 }
 
 // postMultipart will perform a multiple part POST request
