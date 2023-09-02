@@ -774,7 +774,7 @@ func (client *Client) IncreasePriority(hashes []string) error {
 // DecreasePriority of torrents
 func (client *Client) DecreasePriority(hashes []string) error {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/DecreasePrio", opts)
+	resp, err := client.post("api/v2/torrents/decreasePrio", opts)
 	if err != nil {
 		return err
 	}
