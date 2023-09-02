@@ -833,11 +833,11 @@ func (client *Client) FilePriority(hash string, ids []int, priority int) error {
 	}
 
 	opts := map[string]string{
-		"hashes":   hash,
+		"hash":     hash,
 		"id":       delimit(formattedIds, "|"),
 		"priority": strconv.Itoa(priority),
 	}
-	resp, err := client.get("api/v2/torrents/filePrio", opts)
+	resp, err := client.post("api/v2/torrents/filePrio", opts)
 	if err != nil {
 		return err
 	}
