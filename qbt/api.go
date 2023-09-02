@@ -187,14 +187,14 @@ func (client *Client) postMultipartFile(endpoint string, fileName string, opts m
 	// so we can still copy its contents
 	defer file.Close()
 
+	// write the options to the buffer
+	writeOptions(writer, opts)
+
 	// create form for writing the file to and give it the filename
 	formWriter, err := writer.CreateFormFile("torrents", path.Base(fileName))
 	if err != nil {
 		return nil, wrapper.Wrap(err, "error adding file")
 	}
-
-	// write the options to the buffer
-	writeOptions(writer, opts)
 
 	// copy the file contents into the form
 	if _, err = io.Copy(formWriter, file); err != nil {
