@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
+	"github.com/FabriceBoyer/go-qbittorrent/qbt"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/superturkey650/go-qbittorrent/qbt"
 )
 
 func main() {
