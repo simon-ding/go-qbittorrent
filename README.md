@@ -2,9 +2,9 @@
 go-qbittorrent
 ==================
 
-Golang wrapper for qBittorrent Web API (for versions above v4.1) forked from github.com/superturkey650/go-qbittorrent/qbt
+Golang wrapper for qBittorrent Web API (for versions above v4.1) forked from [superturkey650](github.com/superturkey650/go-qbittorrent/qbt) version (only supporting older API version)
 
-This wrapper is based on the methods described in `qBittorrent's Official Web API Documentation <https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)>`__
+This wrapper is based on the methods described in [qBittorrent's Official Web API](https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)>)
 
 Some methods are only supported in qBittorent's latest version (v4.5 when writing).
 
