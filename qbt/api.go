@@ -756,7 +756,7 @@ func (client *Client) RemoveTrackers(hash string, trackers []string) error {
 // IncreasePriority of torrents
 func (client *Client) IncreasePriority(hashes []string) error {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/IncreasePrio", opts)
+	resp, err := client.post("api/v2/torrents/increasePrio", opts)
 	if err != nil {
 		return err
 	}
@@ -792,7 +792,7 @@ func (client *Client) DecreasePriority(hashes []string) error {
 // MaxPriority maximizes the priority of torrents
 func (client *Client) MaxPriority(hashes []string) error {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/TopPrio", opts)
+	resp, err := client.post("api/v2/torrents/topPrio", opts)
 	if err != nil {
 		return err
 	}
@@ -810,7 +810,7 @@ func (client *Client) MaxPriority(hashes []string) error {
 // MinPriority maximizes the priority of torrents
 func (client *Client) MinPriority(hashes []string) error {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/BottomPrio", opts)
+	resp, err := client.post("api/v2/torrents/bottomPrio", opts)
 	if err != nil {
 		return err
 	}
