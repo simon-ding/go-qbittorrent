@@ -553,7 +553,7 @@ func (client *Client) Resume(hashes []string) (bool, error) {
 func (client *Client) Delete(hashes []string, deleteFiles bool) (bool, error) {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
 	opts["deleteFiles"] = strconv.FormatBool(deleteFiles)
-	resp, err := client.get("api/v2/torrents/delete", opts)
+	resp, err := client.post("api/v2/torrents/delete", opts)
 	if err != nil {
 		return false, err
 	}
