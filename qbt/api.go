@@ -264,28 +264,34 @@ func (client *Client) Logout() (err error) {
 
 	// change authentication status so we know were not authenticated in later requests
 	client.Authenticated = (*resp).StatusCode == 200
-
-	return nil
+	if (*resp).StatusCode != 200 {
+		err = wrapper.Errorf("StatusCode is %d", (*resp).StatusCode)
+	}
+	return
 }
 
 // ApplicationVersion of the qbittorrent client
 func (client *Client) ApplicationVersion() (version string, err error) {
-	resp, err := client.get("api/v2/app/version", nil)
+	resp, err := client.post("api/v2/app/version", nil)
 	if err != nil {
 		return version, err
 	}
-	json.NewDecoder(resp.Body).Decode(&version)
-	return version, err
+	buf := new(strings.Builder)
+	io.Copy(buf, resp.Body)
+	version = buf.String()
+	return
 }
 
 // WebAPIVersion of the qbittorrent client
 func (client *Client) WebAPIVersion() (version string, err error) {
-	resp, err := client.get("api/v2/app/webapiVersion", nil)
+	resp, err := client.post("api/v2/app/webapiVersion", nil)
 	if err != nil {
 		return version, err
 	}
-	json.NewDecoder(resp.Body).Decode(&version)
-	return version, err
+	buf := new(strings.Builder)
+	io.Copy(buf, resp.Body)
+	version = buf.String()
+	return
 }
 
 // BuildInfo of the qbittorrent client
@@ -320,8 +326,10 @@ func (client *Client) DefaultSavePath() (path string, err error) {
 	if err != nil {
 		return path, err
 	}
-	json.NewDecoder(resp.Body).Decode(&path)
-	return path, err
+	buf := new(strings.Builder)
+	io.Copy(buf, resp.Body)
+	path = buf.String()
+	return
 }
 
 // Shutdown shuts down the qbittorrent client
@@ -564,7 +572,7 @@ func (client *Client) Delete(hashes []string, deleteFiles bool) (bool, error) {
 // Recheck torrents
 func (client *Client) Recheck(hashes []string) (bool, error) {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/recheck", opts)
+	resp, err := client.post("api/v2/torrents/recheck", opts)
 	if err != nil {
 		return false, err
 	}
