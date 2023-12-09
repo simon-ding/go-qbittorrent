@@ -257,7 +257,7 @@ func (client *Client) Login(opts LoginOptions) (err error) {
 // Logout logs you out of the qbittorrent client
 // returns the current authentication status
 func (client *Client) Logout() (err error) {
-	resp, err := client.get("api/v2/auth/logout", nil)
+	resp, err := client.post("api/v2/auth/logout", nil)
 	if err != nil {
 		return err
 	}
@@ -265,7 +265,7 @@ func (client *Client) Logout() (err error) {
 	// change authentication status so we know were not authenticated in later requests
 	client.Authenticated = (*resp).StatusCode == 200
 	if (*resp).StatusCode != 200 {
-		err = wrapper.Errorf("StatusCode is %d", (*resp).StatusCode)
+		return wrapper.Errorf("An unknown error occurred causing a status code of: %d", (*resp).StatusCode)
 	}
 	return
 }
