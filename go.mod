@@ -1,4 +1,4 @@
-module go-qbittorrent
+module github.com/simon-ding/go-qbittorrent
 
 go 1.23.1
 
