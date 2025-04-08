@@ -549,7 +549,7 @@ func (client *Client) Pause(hashes []string) error {
 // Resume torrents
 func (client *Client) Resume(hashes []string) (bool, error) {
 	opts := map[string]string{"hashes": delimit(hashes, "|")}
-	resp, err := client.get("api/v2/torrents/resume", opts)
+	resp, err := client.get("api/v2/torrents/start", opts)
 	if err != nil {
 		return false, err
 	}
